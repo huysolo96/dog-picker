@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BaseApiService } from './base-api.service';
 import { HttpClient } from '@angular/common/http';
 import { ImageSearchRequestModel } from '@app/models/api/requests/image.request';
@@ -8,8 +8,9 @@ import { ImageResponseModel } from '@app/models/api/responses/image.reponse';
   providedIn: 'root'
 })
 export class ImageApiService extends BaseApiService {
+  private http = inject(HttpClient)
 
-  constructor(private http: HttpClient) {
+  constructor() {
     super('images');
   }
 
@@ -17,8 +18,10 @@ export class ImageApiService extends BaseApiService {
     return this.http.get<ImageResponseModel[]>(this.getApiPath(["search"]), { params });
   }
 
-  getImage(id: string) {
-    return this.http.get<ImageResponseModel>(this.getApiPath([id]));
+  getImage(id: string, params?: ImageSearchRequestModel) {
+    return this.http.get<ImageResponseModel>(this.getApiPath([id]), {
+      params
+    });
   }
 
 }

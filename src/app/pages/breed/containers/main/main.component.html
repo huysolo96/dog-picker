@@ -1,20 +1,23 @@
 <div
+  class="breed-content"
+  fxLayout="row"
   fxLayoutAlign="center center"
-  fxLayout="column wrap"
-  fxLayoutGap="8px"
-  layout-wrap
-  class="bread-container"
+  fxFlex="auto"
 >
-  @for (item of items(); track item) {
-  <app-breed-card [value]="item.breed" (voted)="handleVote()">
-    <div
-      class="breed-content"
-      fxLayout="row"
-      fxLayoutAlign="center center"
-      fxFlex="auto"
-    >
-      <img class="breed-image" [src]="item.image.url" />
+  @if (loading.state()) {
+  <mat-spinner></mat-spinner>
+  } @else { @if (image(); as image) {
+  <img class="breed-image" [src]="image.url" />
+  } } @if (breed(); as breed) {
+  <div class="breed-info">
+    <div class="breed-content-info">
+      <div class="title">
+        {{ breed.name }}
+      </div>
+      <div>
+        {{ breed.bred_for }}
+      </div>
     </div>
-  </app-breed-card>
+  </div>
   }
 </div>

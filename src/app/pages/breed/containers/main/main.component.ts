@@ -1,49 +1,47 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ActivatedRoute, Params, Route, Router } from '@angular/router';
-import { BreedCardComponent } from '@app/pages/breed/components/breed-card/breed-card.component';
-import { ImageApiService } from '@app/services/api/image-api.service';
-import { debounceTime, map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ImageSearchRequestModel } from '@app/models/api/requests/image.request';
-import { get } from 'lodash';
-import { BreedApiService } from '@app/services/api/breed-api.service';
-import { BreedRequestModel } from '@app/models/api/requests/breed.request';
+import { BreedStoreService } from '@app/services/stores/breed-store.service';
+import { ImageApiService } from '@app/services/api/image-api.service';
+import { of } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { useLoading } from '@app/utils/loading';
+import { ActivatedRoute, Router } from '@angular/router';
 
-const getParamPage = (route: Params) => get(route, "page", 0);
 @Component({
   selector: 'app-main',
   standalone: true,
   imports: [
     FlexLayoutModule,
-    BreedCardComponent,
+    MatProgressSpinnerModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-  constructor(protected breedApi: BreedApiService, private route: ActivatedRoute, private router: Router) { }
-  items$ = this.route.queryParams.pipe(
-    debounceTime(500),
-    map(params => <BreedRequestModel>({
-      limit: 1,
-      page: getParamPage(params),
-      ...params,
-    })),
-    switchMap(params => this.breedApi.getBreedsWithImages(params),
-    ));
+  protected breedStore = inject(BreedStoreService);
+  protected imageApi = inject(ImageApiService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
-  items = toSignal(this.items$, {
-    initialValue: [],
-  });
+  loading = useLoading();
+  image = toSignal(this.breedStore.breed.pipe(
+    switchMap(breed => breed ? this.imageApi.getImage(breed.reference_image_id, {
+      size: "med"
+    }).pipe(
+      this.loading.onLoading
+    ) : of(null))
+  ));
+  breed = toSignal(this.breedStore.breed);
 
-  handleVote() {
-    this.router.navigate([], {
-      relativeTo: this.route, queryParams: {
-        page: getParamPage(this.route.snapshot.queryParams) + 1
-      }
-    });
+  @HostListener('click')
+  handleClick() {
+    this.router.navigate(["breed", "details"], {
+      queryParams: this.route.snapshot.queryParams
+    })
   }
+
 
 }

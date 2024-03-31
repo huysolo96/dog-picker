@@ -1,14 +1,34 @@
 <div fxLayout="column" fxLayoutGap="8px">
-  <mat-toolbar
-    color="primary"
-    fxFlex="62px"
-    fxLayoutAlign="left center"
-    fxLayoutGap="8px"
-  >
+  <mat-toolbar color="primary" fxFlex="62px" fxLayoutAlign="left center">
     <mat-icon>pets</mat-icon>
-    <span>Pick your favorite pet!</span>
+    <div
+      fxFlex="auto"
+      flexLayout="row"
+      flexLayoutAlign="center center"
+      class="breed-title"
+    >
+      Pick your favorite pet!
+    </div>
+    <mat-icon>pets</mat-icon>
   </mat-toolbar>
-  <div fxFlex="auto" class="bread-container">
-    <router-outlet></router-outlet>
+  <div
+    fxFlex="auto"
+    fxLayoutAlign="center center"
+    fxLayout="column wrap"
+    fxLayoutGap="8px"
+    layout-wrap
+    class="breed-container"
+  >
+    @if (loading.state()) {
+    <mat-spinner></mat-spinner>
+    } @else { @if (item(); as item) {
+    <app-breed-card
+      [value]="item"
+      [loading]="this.submitting.state()"
+      (voted)="handleVote(item.reference_image_id, $event)"
+    >
+      <router-outlet></router-outlet>
+    </app-breed-card>
+    } }
   </div>
 </div>

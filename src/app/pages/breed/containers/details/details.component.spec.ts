@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DetailsComponent } from './details.component';
+import { BreedStoreService } from '@app/services/stores/breed-store.service';
+import { BreedApiService } from '@app/services/api/breed-api.service';
+import { HttpClientModule } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { routes } from '@app/app.routes';
 
 describe('DetailsComponent', () => {
   let component: DetailsComponent;
@@ -8,10 +13,11 @@ describe('DetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DetailsComponent]
+      imports: [DetailsComponent, HttpClientModule],
+      providers: [BreedStoreService, BreedApiService, provideRouter(routes)]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(DetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

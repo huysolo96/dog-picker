@@ -1,1 +1,30 @@
-<p>details works!</p>
+@if(breed(); as item){<mat-list>
+  <mat-list-item>
+    <h2>Breed detail</h2>
+  </mat-list-item>
+  <mat-list-item>
+    <span matListItemTitle>Name</span>
+    <span matListItemLine>{{ item.name }}</span>
+  </mat-list-item>
+  <mat-list-item>
+    <span matListItemTitle>Breed for</span>
+    <span matListItemLine>{{ item.bred_for }}</span>
+  </mat-list-item>
+  <mat-list-item>
+    <span matListItemTitle>Breed group</span>
+    <span matListItemLine>{{ item.breed_group }}</span>
+  </mat-list-item>
+  <mat-list-item>
+    <span matListItemTitle>Life span</span>
+    <span matListItemLine>{{ item.life_span }}</span>
+  </mat-list-item>
+  <mat-list-item>
+    <span matListItemTitle>Weight metric</span>
+    <span matListItemLine>{{ item.weight.metric }}</span>
+  </mat-list-item>
+  <mat-list-item>
+    <span matListItemTitle>Height metric</span>
+    <span matListItemLine>{{ item.height.metric }}</span>
+  </mat-list-item>
+</mat-list>
+}

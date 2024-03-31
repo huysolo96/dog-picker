@@ -3,3 +3,9 @@ export enum VoteRequestModel {
     DISLIKE = -1,
     SUPERLIKE = 2
 }
+
+export const VoteRequestDictionary = {
+    [VoteRequestModel.LIKE]: "like",
+    [VoteRequestModel.DISLIKE]: "dislike",
+    [VoteRequestModel.SUPERLIKE]: "super like"
+}

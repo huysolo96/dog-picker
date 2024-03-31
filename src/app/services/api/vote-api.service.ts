@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseApiService } from './base-api.service';
 import { HttpClient } from '@angular/common/http';
 import { VoteRequestModel } from '@app/models/api/requests/vote.request';
-import { of } from 'rxjs';
+import { timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class VoteApiService extends BaseApiService {
 })
 export class MockVoteApiService extends VoteApiService {
   override vote(imageId: string, voteNumber: VoteRequestModel) {
-    return of(true);
+    return timer(500)
   }
 }
 
