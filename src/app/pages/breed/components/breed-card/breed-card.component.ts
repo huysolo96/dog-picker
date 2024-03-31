@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,44 +33,5 @@ export class BreedCardComponent {
     this.voted.emit(voteNumber);
   }
 
-
-  defaultTouch = { x: 0, y: 0, time: 0 };
-  @HostListener('touchstart', ['$event'])
-  @HostListener('touchend', ['$event'])
-  @HostListener('touchcancel', ['$event'])
-  handleTouch(event: TouchEvent) {
-    let touch = event.touches[0] || event.changedTouches[0];
-
-    if (event.type === 'touchstart') {
-      this.defaultTouch.x = touch.pageX;
-      this.defaultTouch.y = touch.pageY;
-      this.defaultTouch.time = event.timeStamp;
-    } else if (event.type === 'touchend') {
-      let deltaX = touch.pageX - this.defaultTouch.x;
-      let deltaY = touch.pageY - this.defaultTouch.y;
-      let deltaTime = event.timeStamp - this.defaultTouch.time;
-
-      if (deltaTime < 500) {
-        if (Math.abs(deltaX) > 60) {
-          // swipe right
-          if (deltaX > 0) {
-            this.vote(VoteRequestModel.LIKE);
-          } else {
-            this.vote();
-          }
-        }
-
-        if (Math.abs(deltaY) > 60) {
-          // delta y is at least 60 pixels
-          if (deltaY <= 0) {
-            this.vote(VoteRequestModel.SUPERLIKE);
-          }
-        }
-
-      }
-    }
-
-
-  }
 
 }

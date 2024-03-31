@@ -1,5 +1,11 @@
 <mat-card fxLayout="column wrap">
-  <div fxFlex="auto" class="breed-card-content">
+  <div
+    fxFlex="auto"
+    class="breed-card-content"
+    (swipeLeft)="vote(voteValue.DISLIKE)"
+    (swipeUp)="vote(voteValue.SUPERLIKE)"
+    (swipeRight)="vote(voteValue.LIKE)"
+  >
     <ng-content />
   </div>
 

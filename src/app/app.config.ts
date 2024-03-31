@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, Injectable, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from '@app/app.routes';
@@ -9,6 +9,18 @@ import { authInterceptor } from '@services/interceptors/auth.interceptor';
 
 
 import { MockVoteApiService, VoteApiService } from '@services/api/vote-api.service';
+import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule } from '@angular/platform-browser';
+import 'hammerjs';
+
+
+@Injectable()
+export class MyHammerConfig extends HammerGestureConfig {
+  override overrides = {
+    swipe: { direction: (window as any).Hammer.DIRECTION_ALL },
+  };
+}
+
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +31,7 @@ export const appConfig: ApplicationConfig = {
         authInterceptor
       ])
     ),
+    importProvidersFrom(HammerModule),
     /**
      * Due to an authentication issue with the API, we need to mock the vote API service.
      * This service will always return true for this demo.
@@ -26,6 +39,8 @@ export const appConfig: ApplicationConfig = {
     {
       provide: VoteApiService,
       useExisting: MockVoteApiService
-    }
+    },
+    { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig },
+
   ],
 };
