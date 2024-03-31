@@ -1,18 +1,29 @@
-<mat-card>
-  <mat-card-content class="breed-content">
+<mat-card fxLayout="column wrap">
+  <div fxFlex="auto">
     <ng-content />
-  </mat-card-content>
+  </div>
 
   <mat-card-actions fxLayout="row">
+    @if (value(); as value) {
     <div fxFlex="50%" fxLayout="row" fxLayoutAlign="center">
-      <button mat-fab color="primary">
-        <mat-icon>thumb_up</mat-icon>
+      <button
+        (click)="vote(value.reference_image_id, voteValue.DISLIKE)"
+        mat-fab
+        color="warn"
+      >
+        <mat-icon>close</mat-icon>
       </button>
     </div>
     <div fxFlex="50%" fxLayout="row" fxLayoutAlign="center">
-      <button mat-fab color="warn">
-        <mat-icon>thumb_down</mat-icon>
+      <button
+        (click)="vote(value.reference_image_id, voteValue.LIKE)"
+        mat-fab
+        color="primary"
+      >
+        <mat-icon>favorite</mat-icon>
       </button>
     </div>
+
+    }
   </mat-card-actions>
 </mat-card>

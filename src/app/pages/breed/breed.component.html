@@ -1,1 +1,14 @@
-<router-outlet></router-outlet>
+<div fxLayout="column" fxLayoutGap="8px">
+  <mat-toolbar
+    color="primary"
+    fxFlex="62px"
+    fxLayoutAlign="left center"
+    fxLayoutGap="8px"
+  >
+    <mat-icon>pets</mat-icon>
+    <span>Pick your favorite pet!</span>
+  </mat-toolbar>
+  <div fxFlex="auto" class="bread-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

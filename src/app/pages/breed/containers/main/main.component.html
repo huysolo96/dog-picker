@@ -1,3 +1,20 @@
-<div fxFlex.sm="100%" fxFlex.md="25%" fxFlex.xl="10%">
-  <app-breed-card></app-breed-card>
+<div
+  fxLayoutAlign="center center"
+  fxLayout="column wrap"
+  fxLayoutGap="8px"
+  layout-wrap
+  class="bread-container"
+>
+  @for (item of items(); track item) {
+  <app-breed-card [value]="item.breed" (voted)="handleVote()">
+    <div
+      class="breed-content"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      fxFlex="auto"
+    >
+      <img class="breed-image" [src]="item.image.url" />
+    </div>
+  </app-breed-card>
+  }
 </div>

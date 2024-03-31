@@ -1,6 +1,12 @@
-.breed-content {
-    padding: 1rem;
-    cursor: pointer;
-    min-height: 18rem;
-    min-width: 15rem;
+
+
+:host {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    flex: 100%;
+}
+
+mat-card {
+    height: 100%;
 }

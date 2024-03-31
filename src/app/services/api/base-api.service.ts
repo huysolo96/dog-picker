@@ -12,7 +12,7 @@ export abstract class BaseApiService {
     return `${environment.endPoint}/${this.version}/${this.path}`;
   }
 
-  protected getApiPath(paths: string[]): string {
+  protected getApiPath(paths: string[] = []): string {
     return apiPath([this.baseUrl, ...paths]);
   }
 

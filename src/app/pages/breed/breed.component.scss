@@ -1,4 +1,12 @@
 :host {
-    padding: 1.5rem;
+    height: 100%;
     display: block;
+    > div {
+        height: 100%;
+    }
+}
+
+.bread-container {
+    padding: 1rem;
+    overflow-y: auto;
 }

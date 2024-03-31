@@ -14,7 +14,11 @@ export class ImageApiService extends BaseApiService {
   }
 
   searchImages(params: ImageSearchRequestModel) {
-    return this.http.get<ImageResponseModel>(this.getApiPath(["search"]), { params });
+    return this.http.get<ImageResponseModel[]>(this.getApiPath(["search"]), { params });
+  }
+
+  getImage(id: string) {
+    return this.http.get<ImageResponseModel>(this.getApiPath([id]));
   }
 
 }

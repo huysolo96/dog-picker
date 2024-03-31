@@ -1,4 +1,4 @@
-import { BreadResponseModel } from "./bread.response";
+import { BreadResponseModel } from "./breed.response";
 
 export type ImageMetricResponseModel = {
     imperial: string;
