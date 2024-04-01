@@ -6,9 +6,14 @@ import { DetailsComponent } from "./containers/details/details.component";
 
 const routes: Route[] = [
     {
-        path: '',
+        path: "",
         component: BreedComponent,
         children: [
+            {
+                path: "",
+                redirectTo: "overview",
+                pathMatch: "full"
+            },
             {
                 path: "overview",
                 component: MainComponent

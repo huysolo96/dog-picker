@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreedStoreService } from '@app/services/stores/breed-store.service';
@@ -8,6 +11,9 @@ import { BreedStoreService } from '@app/services/stores/breed-store.service';
   standalone: true,
   imports: [
     MatListModule,
+    MatButtonModule,
+    MatIconModule,
+    FlexLayoutModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './details.component.html',

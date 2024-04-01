@@ -1,7 +1,10 @@
 @if(breed(); as item){<mat-list>
-  <mat-list-item>
-    <h2>Breed detail</h2>
-  </mat-list-item>
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+    <button (click)="handleClick()" mat-icon-button>
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+    <div class="title">Breed detail</div>
+  </div>
   <mat-list-item>
     <span matListItemTitle>Name</span>
     <span matListItemLine>{{ item.name }}</span>
